@@ -1,4 +1,9 @@
 class User < ActiveRecord::Base
-  validates :username, presence: true, length: { minimum: 4, maximum: 30 }
-  validates :email, presence: true, length: { minimum: 10, maximum: 4000 }
+  validates :username, presence: true, 
+            uniqueness: {case_sensitive: false},
+            length: { minimum: 3, maximum: 30 }
+  VALID_EMAIL_REGEX= /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+  validates :email, presence: true, length: { maximum: 4000 },
+             uniqueness: {case_sensitive: false},
+             format: {with: VALID_EMAIL_REGEX}
 end
